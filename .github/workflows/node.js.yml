@@ -13,8 +13,7 @@ jobs:
       - name: Copy front files to root
         run: |
           cp -r front/* ./
-          cp front/.nojekyll ./  # если используешь, чтобы GitHub не игнорировал папки с точкой
-
+          
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
