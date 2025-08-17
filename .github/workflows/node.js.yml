@@ -1,0 +1,23 @@
+name: Deploy Mini App
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy front files to root
+        run: |
+          cp -r front/* ./
+          cp front/.nojekyll ./  # если используешь, чтобы GitHub не игнорировал папки с точкой
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./  # публикуем всё, что теперь в корне
+          publish_branch: gh-pages  # ветка, куда пушим (создастся автоматически)
