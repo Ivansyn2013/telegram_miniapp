@@ -13,10 +13,13 @@ jobs:
       - name: Copy front files to root
         run: |
           cp -r front/* ./
-          
+          # Копируем .nojekyll, если нужен
+          touch .nojekyll
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # публикуем всё, что теперь в корне
-          publish_branch: gh-pages  # ветка, куда пушим (создастся автоматически)
+          personal_token: ${{ secrets.PERSONAL_GH_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
+          commit_message: ${{ format('Deploy from {0}', github.sha) }}
